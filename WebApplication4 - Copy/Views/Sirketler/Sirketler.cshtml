@@ -1,0 +1,101 @@
+﻿@model List<WebApplication4.Models.company>
+
+@{
+    ViewBag.Title = "Şirketler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Şirketler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Buton Stilleri */
+        .btn-lightblue {
+            background-color: #6ec6ff !important; /* Açık mavi */
+            color: white !important;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+            .btn-lightblue:hover {
+                background-color: #57b5f9 !important; /* Bir ton koyu mavi */
+            }
+    </style>
+</head>
+<body>
+    <br />
+
+    <!-- EKLE Butonu -->
+    <p>
+        @Html.ActionLink("EKLE", "CompanyEkle", "Sirketler", null, new { @class = "btn-lightblue" })
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Şirket ID</th>
+                <th>Şirket İsmi</th>
+                <th>DÜZENLE</th>
+                <th>SİL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sirket in Model)
+            {
+                <tr>
+                    <td>@sirket.CompanyID</td>
+                    <td>@sirket.CompanyName</td>
+                    <td>
+                        @Html.ActionLink("DÜZENLE", "CompanyDuzenle", "Sirketler", new { id = sirket.CompanyID }, new { @class = "btn-lightblue" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("SİL", "CompanySil", "Sirketler", new { id = sirket.CompanyID }, new { @class = "btn-lightblue" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@model WebApplication4.Models.company
+
+@{
+    ViewBag.Title = "Şirket Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="
+    background: linear-gradient(to right, #b3ecff, #e6f7ff);
+    color: #007bff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007bff;">
+    Şirket Düzenle
+</h2>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Şirket Düzenle</h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+                    @using (Html.BeginForm("CompanyDuzenle", "Sirketler", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <!-- CompanyID: Düzenlenemez, sadece okunur -->
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyID, new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(m => m.CompanyID, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+
+                        <!-- Company Name -->
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyName, new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = "Şirket Adı" })
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Güncelle</button>
+                        @Html.ActionLink("Geri Dön", "Sirketler", "Sirketler", null, new { @class = "btn btn-secondary ml-2" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model WebApplication4.Models.company
+
+@{
+    ViewBag.Title = "Yeni Şirket Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="
+    background: linear-gradient(to right, #b3ecff, #e6f7ff);
+    color: #007bff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007bff;">
+    Yeni Şirket Ekle
+</h2>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Yeni Şirket Ekle</h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+
+                    @using (Html.BeginForm("CompanyEkle", "Sirketler", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyID, new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(m => m.CompanyID, new { @class = "form-control", placeholder = "Company ID (Elle Girin)" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyName, new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = "Şirket Adı" })
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                        @Html.ActionLink("Geri Dön", "Sirketler", "Default", null, new { @class = "btn btn-secondary ml-2" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

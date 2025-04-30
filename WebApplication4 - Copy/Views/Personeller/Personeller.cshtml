@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Personeller";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<WebApplication4.Models.personel>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel Listesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Buton Stilleri */
+        .btn-lightblue {
+            background-color: #6ec6ff !important; /* Açık mavi */
+            color: white !important;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+            .btn-lightblue:hover {
+                background-color: #57b5f9 !important; /* Bir ton koyu mavi */
+            }
+    </style>
+</head>
+<body>
+    <br />
+
+    <p>
+        @Html.ActionLink("EKLE", "PersonelEkle", "Personeller", null, new { @class = "btn-lightblue" })
+    </p>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <table>
+        <tr>
+            <th>Kart ID</th>
+            <th>Kart No</th>
+            <th>Rol ID</th>
+            <th>Adı Soyadı</th>
+            <th>Şirket</th>
+            <th>Şirket ID</th>
+            <th>Telefon</th>
+            <th>Mobil</th>
+            <th>Telefon 2</th>
+            <th>Email</th>
+            <th>Şifre</th>
+            <th>Görev</th>
+            <th>İş Adresi</th>
+            <th>Resim</th>
+            <th>Web Sitesi</th>
+            <th>Logo</th>
+            <th>Eklenme Tarihi</th>
+            <th>Güncellenme Tarihi</th>
+            <th>Düzenle</th>
+            <th>Sil</th>
+        </tr>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>@personel.CardID</td>
+                <td>@personel.CardNo</td>
+                <td>@personel.RollID</td>
+                <td>@personel.Fullname</td>
+                <td>@personel.Company</td>
+                <td>@personel.CompanyID</td>
+                <td>@personel.PhoneNumber</td>
+                <td>@personel.MobileNumber</td>
+                <td>@personel.PhoneNumber2</td>
+                <td>@personel.EmailAdress</td>
+                <td>@personel.Password</td>
+                <td>@personel.JobTitle</td>
+                <td>@personel.WorkAdress</td>
+                <td>
+                    <img src="@personel.Image" alt="Profil Resmi">
+                </td>
+                <td>@personel.Website</td>
+                <td>
+                    <img src="@personel.Logo" alt="Şirket Logosu">
+                </td>
+                <td>@personel.AddDate</td>
+                <td>@personel.UpdDate</td>
+                <td>
+                    @Html.ActionLink("DÜZENLE", "PersonelDuzenle", "Personeller", new { id = personel.CardID }, new { @class = "btn-lightblue" })
+                </td>
+                <td>
+                    @Html.ActionLink("SİL", "PersonelSil", "Personeller", new { id = personel.CardID }, new { @class = "btn-lightblue" })
+                </td>
+            </tr>
+        }
+    </table>
+
+</body>
+</html>
